@@ -9,6 +9,7 @@ Y="\e[33m"
 N="\e[0m"
 script_dir=$PWD
 mongodb_host=mongodb.daws-88s.online
+MYSQL_HOST=mysql.daws-88s.online
 
 start_time=$(date +%s)
 mkdir -p $logs_folder
@@ -32,17 +33,29 @@ validate() {
 }
 
 nodejs_setup () {
-dnf module disable nodejs -y &>> $logs_file
-validate $? "disabling nodejs default module"
+    dnf module disable nodejs -y &>> $logs_file
+    validate $? "disabling nodejs default module"
 
-dnf module enable nodejs:20 -y &>> $logs_file
-validate $? "enabling nodejs 20"
+    dnf module enable nodejs:20 -y &>> $logs_file
+    validate $? "enabling nodejs 20"
 
-dnf install nodejs -y &>> $logs_file
-validate $? "installing nodejs"
+    dnf install nodejs -y &>> $logs_file
+    validate $? "installing nodejs"
 
-npm install &>> $logs_file
-validate $? "installing dependencies"
+    npm install &>> $logs_file
+    validate $? "installing dependencies"
+}
+
+java_setup() {
+    dnf install maven -y &>>$logs_file
+    validate $? "installing maven"
+
+    cd /app  
+    mvn clean package &>>$logs_file
+    validate $? "installing and building $app_name"
+
+    mv target/$app_name-1.0.jar $app_name.jar 
+    validate $? "moving and renaming $app_name"
 }
 
 app_setup() {
