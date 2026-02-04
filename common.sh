@@ -11,7 +11,7 @@ N="\e[0m"
 start_time=$(date +%s)
 mkdir -p $logs_folder
 
-echo "$(date "+%y-%m-%d %h%m%s") | script started executing at: $(date)" | tee -a $logs_file
+echo "$(date "+%y-%m-%d %H:%M:%S") | script started executing at: $(date)" | tee -a $logs_file
 
 check_root () {
     if [ $userid -ne 0 ]; then
@@ -22,10 +22,10 @@ check_root () {
 
 validate() {
     if [ $1 -ne 0 ]; then
-       echo -e "$(date "+%y-%m-%d %h%m%s") | $2 $R failed $N"  | tee -a $logs_file
+     echo -e "$(date "+%y-%m-%d %H:%M:%S") | $2 $R failed $N"  | tee -a $logs_file
        exit 1
     else
-       echo -e "$(date "+%y-%m-%d %h%m%s") | $2 $G success $N" | tee -a $logs_file
+       echo -e "$(date "+%y-%m-%d %H:%M:%S") | $2 $G success $N" | tee -a $logs_file
     fi
 }
 
