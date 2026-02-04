@@ -90,6 +90,6 @@ validate $? "restarting $app_name"
 
 print_total_time() {
     end_time=$(date +%s)
-    total_time=$(( end_time - start_time ))
+    total_time=$(( $end_time - $start_time ))
     echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script executed in: $G$total_time seconds$N" | tee -a $logs_file
 }
