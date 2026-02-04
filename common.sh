@@ -25,7 +25,7 @@ validate() {
        echo -e "$(date "+%y-%m-%d %h%m%s") | $2 $R failed $N"  | tee -a $logs_file
        exit 1
     else
-       echo -e "$(date "+%y-%m-%d %h%m%s") | $2 $G success $N" | tee -a $logs_file"
+       echo -e "$(date "+%y-%m-%d %h%m%s") | $2 $G success $N" | tee -a $logs_file
     fi
 }
 
