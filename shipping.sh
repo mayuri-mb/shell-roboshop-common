@@ -7,6 +7,9 @@ app_setup
 java_setup
 systemd_setup
 
+dnf install mysql -y  &>>$logs_file
+validate $? "installing mysql"
+
 mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities'
 if [ $? -ne 0 ]; then
 
