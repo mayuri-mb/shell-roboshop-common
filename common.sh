@@ -1,7 +1,7 @@
 #!/bin/bash
 
-userid=(id -u)
-logs_folder="logs/var/shell-roboshop-common"
+userid=$(id -u)
+logs_folder="/var/log/shell-roboshop-common"
 logs_file="$logs_folder/$0.log
 
 R="\e[31m"
