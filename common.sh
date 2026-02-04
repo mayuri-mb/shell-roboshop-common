@@ -46,13 +46,13 @@ validate $? "installing dependencies"
 }
 
 app_setup() {
-id roboshop
-if [ $? -ne 0 ]; then
-   useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $logs_file
-   validate $? "Creating system user"
-else
-   echo -e "Roboshop user already exist..$Y Skipping $N"
-fi  
+    id roboshop
+    if [ $? -ne 0 ]; then
+       useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $logs_file
+       validate $? "Creating system user"
+    else
+       echo -e "Roboshop user already exist..$Y Skipping $N"
+    fi  
 
 #Downloading the app
     mkdir -p /app 
@@ -64,7 +64,7 @@ fi
     cd /app 
     validate $? "moving to app directory"
 
-    rm -rf /app/*
+    rm -rf /app/*  &>> $logs_file
     validate $? "Removing existing code"
 
     unzip /tmp/$app_name.zip &>> $logs_file
@@ -72,7 +72,7 @@ fi
 }
 
 systemd_setup() {
-    cp $script_dir/$app_name.service /etc/systemd/system/$app_name.service  
+    cp $script_dir/$app_name.service /etc/systemd/system/$app_name.service   &>> $logs_file
     validate $? "Created systemctl service"
 
     systemctl daemon-reload
@@ -84,12 +84,12 @@ systemd_setup() {
 }
 
 app_restart() {
-systemctl restart $app_name
+systemctl restart $app_name  &>> $logs_file
 validate $? "restarting $app_name" 
 }
 
 print_total_time() {
     end_time=$(date +%s)
-    total_time=$( $end_time - $start_time )
-    echo -e "Script executed in: $G $total_time seconds $N" | tee -a $logs_file
+    total_time=$(( $end_time - $start_time ))
+    echo -e "$(date " +%Y-%m-%d %H:%M:%S") | Script executed in: $G $total_time seconds $N" | tee -a $logs_file
 }
