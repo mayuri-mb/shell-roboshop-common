@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ./common.sh
-mkdir -p $logs_folder
+
 check_root
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
@@ -21,3 +21,5 @@ validate $? "Allowing remote connections"
 
 systemctl restart mongod
 validate $? "Restarted mongodb"
+
+print_total_time
