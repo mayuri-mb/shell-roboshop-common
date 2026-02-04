@@ -46,7 +46,7 @@ validate $? "installing dependencies"
 }
 
 app_setup() {
-    id roboshop
+    id roboshop &>> $logs_file
     if [ $? -ne 0 ]; then
        useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $logs_file
        validate $? "Creating system user"
@@ -91,5 +91,5 @@ validate $? "restarting $app_name"
 print_total_time() {
     end_time=$(date +%s)
     total_time=$(( end_time - start_time ))
-    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script executed in: $G $total_time seconds $N" | tee -a $logs_file
+    echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script executed in: $G$total_time seconds$N" | tee -a $logs_file
 }
