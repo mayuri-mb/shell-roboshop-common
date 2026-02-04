@@ -18,4 +18,4 @@ rabbitmqctl add_user roboshop roboshop123 &>>$logs_file
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>$logs_file
 validate $? "created users and given permissions" 
 
-ptint_total_time
+print_total_time
