@@ -15,7 +15,7 @@ dnf install mongodb-mongosh -y &>> $logs_file
 index=$(mongosh --host $mongodb_host --quiet -eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
 if [ $index -le 0 ]; then
-   mongosh --host $mongodb_host </app/db/master-data.js
+   mongosh --host $mongodb_host </app/db/master-data.js  $logs_file
    validate $? "Loading Products"
 else
    echo -e "$(date "+%y-%m-%d %H:%M:%S") |Product already loaded..$Y Skipping $N" 
