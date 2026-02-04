@@ -2,12 +2,12 @@
 
 userid=$(id -u)
 logs_folder="/var/log/shell-roboshop-common"
-logs_file="$logs_folder/$0.log
-
+logs_file="$logs_folder/$0.log"
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+
 start_time=$(date +%s)
 mkdir -p $logs_folder
 
@@ -23,9 +23,9 @@ check_root () {
 validate() {
     if [ $1 -ne 0 ]; then
      echo -e "$(date "+%y-%m-%d %H:%M:%S") | $2 $R failed $N"  | tee -a $logs_file
-       exit 1
+     exit 1
     else
-       echo -e "$(date "+%y-%m-%d %H:%M:%S") | $2 $G success $N" | tee -a $logs_file
+     echo -e "$(date "+%y-%m-%d %H:%M:%S") | $2 $G success $N" | tee -a $logs_file
     fi
 }
 
